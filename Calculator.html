@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html ng-app="calApp">
+<head>
+    <script src="angular.min.js"></script>
+    <title>AngularJS Calculator</title>
+    <style>
+        table{
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 10px;
+            background-color:lavenderblush;
+        }
+        button{
+            width: 40px;
+            border-radius: 10px;
+            background-color: lavender;
+        }
+        .equal{
+            height: 45px;
+            border-radius: 10px;
+            background-color: lavender;
+        }
+        .dot{
+            width:84px;
+            border-radius: 10px;
+            background-color: lavender;
+        }
+        fieldset{
+            height: 20px;
+            border-radius: 10px;
+        }
+        input{
+            height: 25px;
+            border-radius: 10px;
+
+        }
+    </style>
+</head>
+<body ng-controller="calController">
+    <table>
+        <tr>
+            <td colspan="4"><input type="text" class="display" ng-model="display" readonly></td>
+        </tr>
+        <tr>
+            <td><button ng-click="clear()">C</button></td>
+            <td><button ng-click="press('/')">/</button></td>
+            <td><button ng-click="press('%')">%</button></td>
+            <td><button ng-click="press('*')">x</button></td>
+        </tr>
+        <tr>
+            <td><button ng-click="press('7')">7</button></td>
+            <td><button ng-click="press('8')">8</button></td>
+            <td><button ng-click="press('9')">9</button></td>
+            <td><button ng-click="press('-')">-</button></td>
+        </tr>
+        <tr>
+            <td><button ng-click="press('4')">4</button></td>
+            <td><button ng-click="press('5')">5</button></td>
+            <td><button ng-click="press('6')">6</button></td>
+            <td><button ng-click="press('+')">+</button></td>
+        </tr>
+        <tr>
+            <td><button ng-click="press('1')">1</button></td>
+            <td><button ng-click="press('2')">2</button></td>
+            <td><button ng-click="press('3')">3</button></td>
+            <td rowspan="2"><button class="equal" ng-click="calculate()">=</button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button class="dot" ng-click="press('0')">0</button></td>
+            <td><button ng-click="press('.')">.</button></td>
+        </tr>
+    </table>
+    <script>
+        var app=angular.module("calApp",[])
+        app.controller("calController",function($scope){
+            $scope.display="";
+            $scope.press=function(value){
+                $scope.display+=value
+            };
+            $scope.calculate=function(){
+                try{
+                    $scope.display=eval($scope.display);
+                } catch(e){
+                    $scope.display="Error";
+                }
+            };
+            $scope.clear=function(){
+                $scope.display="";
+            };
+        });
+    </script>
+</body>
+</html>
